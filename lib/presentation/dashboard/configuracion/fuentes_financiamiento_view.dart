@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:adasba_2024/presentation/providers/proyectos/proyectos_repository_provider.dart';
+import 'package:adasba_2024/utilities/error_manager.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -337,15 +339,31 @@ class _FuentesFinanciamientoViewState
     setState(() => _isGeneratingExcel = true);
     final List<List<String>> rows = [];
     //Generar los headers
-    rows.add(['Nombre', 'Descripción']);
+    rows.add(['Proyecto', 'Código', 'Nombre', 'Descripción']);
 
     //Generar los datos (rows de datos)
     for (int i = 0; i < fuentes.length; i++) {
-      rows.add(
-          [fuentes[i].nombreFuente, fuentes[i].descripcionFuente.toString()]);
+      String nombreProyecto = await _getProyectoNombre(fuentes[i].idProyecto);
+      rows.add([
+        nombreProyecto,
+        fuentes[i].codigoFuente,
+        fuentes[i].nombreFuente,
+        fuentes[i].descripcionFuente.toString()
+      ]);
     }
     await _createExcelFile(rows);
     setState(() => _isGeneratingExcel = false);
+  }
+
+  Future<String> _getProyectoNombre(int id) async {
+    String nombreProyecto = '';
+    final response = await ref.read(getSpecificProyectoProvider).call(id);
+    response.fold((failure) {
+      throw const ServerFailure(message: 'Ocurrió un error');
+    }, (proyecto) {
+      nombreProyecto = proyecto.nombreCorto;
+    });
+    return nombreProyecto;
   }
 
   Future<void> _createExcelFile(List<List<String>> rows) async {

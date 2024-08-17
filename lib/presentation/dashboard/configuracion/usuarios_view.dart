@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:adasba_2024/domain/entities/user.dart';
-import 'package:adasba_2024/presentation/providers/grupos/grupos_repository_provider.dart';
-import 'package:adasba_2024/utilities/error_manager.dart';
-import 'package:adasba_2024/utilities/table_to_excel.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:adasba_2024/domain/entities/user.dart';
+import 'package:adasba_2024/presentation/providers/grupos/grupos_repository_provider.dart';
+import 'package:adasba_2024/utilities/error_manager.dart';
+import 'package:adasba_2024/utilities/table_to_excel.dart';
 import 'package:adasba_2024/presentation/dashboard/modales/usuario_modal.dart';
 import 'package:adasba_2024/presentation/dashboard/data_table_sources/usuarios_dts.dart';
 import 'package:adasba_2024/presentation/providers/users/users_manager.dart';
