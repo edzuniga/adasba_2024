@@ -96,7 +96,7 @@ class RemoteUserDataSource implements UserDataSource {
       );
 
       final receivedData = jsonDecode(response.body);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 404) {
         final List<dynamic> usuariosJson = receivedData['data']['usuarios'];
 
         usuariosListado = usuariosJson.map((json) {

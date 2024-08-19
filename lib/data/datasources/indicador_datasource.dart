@@ -1,33 +1,33 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import 'package:adasba_2024/data/models/actor_model.dart';
-import 'package:adasba_2024/domain/entities/actor.dart';
-import 'package:adasba_2024/utilities/secure_storage.dart';
 import 'package:adasba_2024/constants/api_routes.dart';
+import 'package:adasba_2024/data/models/indicador_model.dart';
+import 'package:adasba_2024/domain/entities/indicador.dart';
+import 'package:adasba_2024/utilities/secure_storage.dart';
 
-abstract class ActorDataSource {
-  Future<List<Actor>> getAllActores(String codaleaOrg);
-  Future<Actor> getSpecificActor(int id);
-  Future<String> addActor(Actor actor);
-  Future<void> updateActor(Actor actor);
-  Future<void> deleteActor(int id);
+abstract class IndicadorDataSource {
+  Future<List<Indicador>> getAllIndicadores(String codaleaOrg);
+  Future<Indicador> getSpecificIndicador(int id);
+  Future<String> addIndicador(Indicador indicador);
+  Future<String> updateIndicador(Indicador indicador);
+  Future<String> deleteIndicador(int id);
 }
 
-class RemoteActorDataSource implements ActorDataSource {
+class RemoteIndicadorDataSource implements IndicadorDataSource {
   @override
-  Future<String> addActor(Actor actor) async {
+  Future<String> addIndicador(Indicador indicador) async {
     //Obtener las variables necesarias del storage
     final storage = SecureStorage();
     String? accessToken = await storage.getAccessToken();
 
-    // Crear una instancia de model a partir del entity
-    ActorModel actorModel = ActorModel.fromActor(actor);
+    // Crear una instancia de componenteModel a partir de componente
+    IndicadorModel model = IndicadorModel.fromIndicador(indicador);
 
-    Map<String, dynamic> cuerpo = actorModel.toJson();
+    Map<String, dynamic> cuerpo = model.toJson();
     try {
       //!TODO: después cambiarlas a https
-      var url = Uri.http(ApiRoutes.urlApi, ApiRoutes.addActorRoute);
+      var url = Uri.http(ApiRoutes.urlApi, ApiRoutes.addIndicadorRoute);
       var response = await http.post(
         url,
         headers: {
@@ -49,11 +49,11 @@ class RemoteActorDataSource implements ActorDataSource {
   }
 
   @override
-  Future<String> deleteActor(int id) async {
+  Future<String> deleteIndicador(int id) async {
     //Obtener las variables necesarias del storage
     final storage = SecureStorage();
     String? accessToken = await storage.getAccessToken();
-    String rutaConId = '${ApiRoutes.actorRoute}$id';
+    String rutaConId = '${ApiRoutes.indicadorRoute}$id';
     try {
       //!TODO: después cambiarlas a https
       var url = Uri.http(ApiRoutes.urlApi, rutaConId);
@@ -77,12 +77,12 @@ class RemoteActorDataSource implements ActorDataSource {
   }
 
   @override
-  Future<List<Actor>> getAllActores(String codaleaOrg) async {
+  Future<List<Indicador>> getAllIndicadores(String codaleaOrg) async {
     //Obtener las variables necesarias del storage
     final storage = SecureStorage();
     String? accessToken = await storage.getAccessToken();
-    List<Actor> actoresListado = [];
-    String rutaConCodaleaOrg = '${ApiRoutes.allActoresRoute}$codaleaOrg';
+    List<Indicador> listado = [];
+    String rutaConCodaleaOrg = '${ApiRoutes.allIndicadoresRoute}$codaleaOrg';
     try {
       //!TODO: después cambiarlas a https
       var url = Uri.http(ApiRoutes.urlApi, rutaConCodaleaOrg);
@@ -96,14 +96,13 @@ class RemoteActorDataSource implements ActorDataSource {
 
       final receivedData = jsonDecode(response.body);
       if (response.statusCode == 200 || response.statusCode == 404) {
-        final List<dynamic> actoresJson =
-            receivedData['data']['actores_participantes'];
+        final List<dynamic> json = receivedData['data']['indicadores'];
 
-        actoresListado = actoresJson.map((json) {
-          return ActorModel.fromJson(
+        listado = json.map((json) {
+          return IndicadorModel.fromJson(
               json as Map<String, dynamic>); //es importante en "as" (casting)
         }).toList();
-        return actoresListado;
+        return listado;
       }
       throw receivedData['messages'][0] ?? 'error';
     } catch (e) {
@@ -112,12 +111,12 @@ class RemoteActorDataSource implements ActorDataSource {
   }
 
   @override
-  Future<Actor> getSpecificActor(int id) async {
+  Future<Indicador> getSpecificIndicador(int id) async {
     //Obtener las variables necesarias del storage
     final storage = SecureStorage();
     String? accessToken = await storage.getAccessToken();
-    List<Actor> actoresListado = [];
-    String rutaConId = '${ApiRoutes.actorRoute}$id';
+    List<Indicador> listado = [];
+    String rutaConId = '${ApiRoutes.indicadorRoute}$id';
     try {
       //!TODO: después cambiarlas a https
       var url = Uri.http(ApiRoutes.urlApi, rutaConId);
@@ -132,14 +131,13 @@ class RemoteActorDataSource implements ActorDataSource {
       final receivedData = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        final List<dynamic> actoresJson =
-            receivedData['data']['actores_participantes'];
+        final List<dynamic> json = receivedData['data']['indicadores'];
 
-        actoresListado = actoresJson.map((json) {
-          return ActorModel.fromJson(
+        listado = json.map((json) {
+          return IndicadorModel.fromJson(
               json as Map<String, dynamic>); //es importante en "as" (casting)
         }).toList();
-        return actoresListado.first;
+        return listado.first;
       }
       throw receivedData['messages'][0] ?? 'error';
     } catch (e) {
@@ -148,17 +146,17 @@ class RemoteActorDataSource implements ActorDataSource {
   }
 
   @override
-  Future<String> updateActor(Actor actor) async {
+  Future<String> updateIndicador(Indicador indicador) async {
     //Obtener las variables necesarias del storage
     final storage = SecureStorage();
     String? accessToken = await storage.getAccessToken();
 
     // Crear una instancia de GrupoModel a partir de Grupo
-    ActorModel actorModel = ActorModel.fromActor(actor);
+    IndicadorModel model = IndicadorModel.fromIndicador(indicador);
 
-    String rutaConId = '${ApiRoutes.actorRoute}${actor.id}';
+    String rutaConId = '${ApiRoutes.indicadorRoute}${indicador.id}';
 
-    Map<String, dynamic> cuerpo = actorModel.toJson();
+    Map<String, dynamic> cuerpo = model.toJson();
     try {
       //!TODO: después cambiarlas a https
       var url = Uri.http(ApiRoutes.urlApi, rutaConId);

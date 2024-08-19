@@ -51,4 +51,14 @@ class ApiRoutes {
   static const allFuentesRoute = '/api_sgp_mo/v1/fuentes/codalea_org/';
   static const fuenteRoute = '/api_sgp_mo/v1/fuentes/';
   static const addFuenteRoute = '/api_sgp_mo/v1/fuentes';
+
+  //*COMPONENTES
+  static const allComponentesRoute = '/api_sgp_mo/v1/componentes/codalea_org/';
+  static const componenteRoute = '/api_sgp_mo/v1/componentes/';
+  static const addComponenteRoute = '/api_sgp_mo/v1/componentes';
+
+  //*INDICADORES
+  static const allIndicadoresRoute = '/api_sgp_mo/v1/indicadores/codalea_org/';
+  static const indicadorRoute = '/api_sgp_mo/v1/indicadores/';
+  static const addIndicadorRoute = '/api_sgp_mo/v1/indicadores';
 }

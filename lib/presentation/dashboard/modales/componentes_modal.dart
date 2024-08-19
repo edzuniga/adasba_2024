@@ -6,33 +6,35 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:random_string/random_string.dart';
 
-import 'package:adasba_2024/domain/entities/fuente.dart';
-import 'package:adasba_2024/presentation/providers/fuentes/fuentes_repository_provider.dart';
+import 'package:adasba_2024/domain/entities/componente.dart';
+import 'package:adasba_2024/presentation/providers/componentes/componentes_repository_provider.dart';
 import 'package:adasba_2024/presentation/providers/proyectos/proyectos_repository_provider.dart';
 import 'package:adasba_2024/utilities/secure_storage.dart';
 import 'package:adasba_2024/utilities/add_update_delete_enum.dart';
 import 'package:adasba_2024/constants/app_colors.dart';
 import 'package:adasba_2024/presentation/widgets/custom_input.dart';
 
-class FuentesModal extends ConsumerStatefulWidget {
-  const FuentesModal(
+class ComponentesModal extends ConsumerStatefulWidget {
+  const ComponentesModal(
       {required this.titulo,
       required this.modalPurpose,
-      this.fuente,
+      this.componente,
       super.key});
   final String titulo;
   final ModalPurpose modalPurpose;
-  final Fuente? fuente;
+  final Componente? componente;
 
   @override
-  ConsumerState<FuentesModal> createState() => _FuentesModalState();
+  ConsumerState<ComponentesModal> createState() => _ComponentesModalState();
 }
 
-class _FuentesModalState extends ConsumerState<FuentesModal> {
-  final GlobalKey<FormState> _fuentesFormKey = GlobalKey<FormState>();
-  final TextEditingController _nombreFuenteController = TextEditingController();
-  final TextEditingController _codigoFuenteController = TextEditingController();
-  final TextEditingController _descripcionFuenteController =
+class _ComponentesModalState extends ConsumerState<ComponentesModal> {
+  final GlobalKey<FormState> _componentesFormKey = GlobalKey<FormState>();
+  final TextEditingController _codigoComponenteController =
+      TextEditingController();
+  final TextEditingController _nombreComponenteController =
+      TextEditingController();
+  final TextEditingController _descripcionComponenteController =
       TextEditingController();
   List<DropdownMenuItem<int>> _itemsDropdown = [];
   int? _selectedIdProyecto;
@@ -78,9 +80,10 @@ class _FuentesModalState extends ConsumerState<FuentesModal> {
   }
 
   Future<void> _getFieldValues() async {
-    final fuentesProvider = ref.read(getSpecificFuenteProvider);
-    final fuenteData = await fuentesProvider.call(widget.fuente!.id!);
-    fuenteData.fold((failure) {
+    final componentesProvider = ref.read(getSpecificComponenteProvider);
+    final componenteData =
+        await componentesProvider.call(widget.componente!.id!);
+    componenteData.fold((failure) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -93,9 +96,10 @@ class _FuentesModalState extends ConsumerState<FuentesModal> {
         ),
       );
     }, (successData) async {
-      _nombreFuenteController.text = successData.nombreFuente;
-      _codigoFuenteController.text = successData.codigoFuente;
-      _descripcionFuenteController.text = successData.descripcionFuente ?? '';
+      _codigoComponenteController.text = successData.codigoComponente;
+      _nombreComponenteController.text = successData.nombreComponente;
+      _descripcionComponenteController.text =
+          successData.descripcionComponente ?? '';
       _selectedIdProyecto = successData.idProyecto;
       setState(() {});
     });
@@ -103,9 +107,9 @@ class _FuentesModalState extends ConsumerState<FuentesModal> {
 
   @override
   void dispose() {
-    _nombreFuenteController.dispose();
-    _codigoFuenteController.dispose();
-    _descripcionFuenteController.dispose();
+    _codigoComponenteController.dispose();
+    _nombreComponenteController.dispose();
+    _descripcionComponenteController.dispose();
     super.dispose();
   }
 
@@ -125,7 +129,7 @@ class _FuentesModalState extends ConsumerState<FuentesModal> {
       ),
       child: widget.modalPurpose != ModalPurpose.delete
           ? Form(
-              key: _fuentesFormKey,
+              key: _componentesFormKey,
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -143,7 +147,7 @@ class _FuentesModalState extends ConsumerState<FuentesModal> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '${widget.titulo} fuente',
+                            '${widget.titulo} componente',
                             style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w700,
@@ -235,14 +239,15 @@ class _FuentesModalState extends ConsumerState<FuentesModal> {
                         children: [
                           Expanded(
                             child: CustomInputField(
-                              controlador: _nombreFuenteController,
-                              label: 'Nombre de la fuente',
+                              controlador: _nombreComponenteController,
+                              label: 'Nombre del componente',
                               isRequired: true,
                             ),
                           ),
                         ],
                       ),
                     ),
+
                     //Código
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -251,7 +256,7 @@ class _FuentesModalState extends ConsumerState<FuentesModal> {
                         children: [
                           Expanded(
                             child: CustomInputField(
-                              controlador: _codigoFuenteController,
+                              controlador: _codigoComponenteController,
                               label: 'Código *(hasta 25 caracteres)',
                               isRequired: true,
                             ),
@@ -259,6 +264,7 @@ class _FuentesModalState extends ConsumerState<FuentesModal> {
                         ],
                       ),
                     ),
+
                     //Descripción
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -269,14 +275,15 @@ class _FuentesModalState extends ConsumerState<FuentesModal> {
                         children: [
                           Expanded(
                             child: CustomInputField(
-                              controlador: _descripcionFuenteController,
-                              label: 'Descripción de la fuente',
+                              controlador: _descripcionComponenteController,
+                              label: 'Descripción del componente',
                               isTextArea: true,
                             ),
                           ),
                         ],
                       ),
                     ),
+
                     //Botones cancelar y agregar
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -307,7 +314,7 @@ class _FuentesModalState extends ConsumerState<FuentesModal> {
                             onPressed: _isSendingData
                                 ? () {}
                                 : () async {
-                                    if (_fuentesFormKey.currentState!
+                                    if (_componentesFormKey.currentState!
                                         .validate()) {
                                       //Obtener los datos del storage
                                       final storage = SecureStorage();
@@ -316,47 +323,53 @@ class _FuentesModalState extends ConsumerState<FuentesModal> {
                                       String? userId =
                                           await storage.getUserId();
 
-                                      Fuente fuente = (widget.modalPurpose ==
+                                      Componente componente = (widget
+                                                  .modalPurpose ==
                                               ModalPurpose.add)
-                                          ? Fuente(
+                                          ? Componente(
                                               codaleaOrg: codaleaOrg.toString(),
                                               codalea: randomAlphaNumeric(15),
                                               idProyecto: _selectedIdProyecto!,
-                                              codigoFuente:
-                                                  _codigoFuenteController.text,
-                                              nombreFuente:
-                                                  _nombreFuenteController.text,
-                                              descripcionFuente:
-                                                  _descripcionFuenteController
+                                              nombreComponente:
+                                                  _nombreComponenteController
+                                                      .text,
+                                              codigoComponente:
+                                                  _codigoComponenteController
+                                                      .text,
+                                              descripcionComponente:
+                                                  _descripcionComponenteController
                                                       .text,
                                               activo: 1,
                                               fechaCreado: DateTime.now(),
                                               creadoPor:
                                                   int.tryParse(userId!) ?? 1,
                                             )
-                                          : Fuente(
-                                              id: widget.fuente!.id,
+                                          : Componente(
+                                              id: widget.componente!.id,
                                               codaleaOrg: codaleaOrg.toString(),
-                                              codalea: widget.fuente!.codalea,
+                                              codalea:
+                                                  widget.componente!.codalea,
                                               idProyecto: _selectedIdProyecto!,
-                                              codigoFuente:
-                                                  _codigoFuenteController.text,
-                                              nombreFuente:
-                                                  _nombreFuenteController.text,
-                                              descripcionFuente:
-                                                  _descripcionFuenteController
+                                              nombreComponente:
+                                                  _nombreComponenteController
+                                                      .text,
+                                              codigoComponente:
+                                                  _codigoComponenteController
+                                                      .text,
+                                              descripcionComponente:
+                                                  _descripcionComponenteController
                                                       .text,
                                               activo: 1,
-                                              creadoPor: widget.fuente!.id!,
-                                              fechaCreado:
-                                                  widget.fuente!.fechaCreado,
+                                              creadoPor: widget.componente!.id!,
+                                              fechaCreado: widget
+                                                  .componente!.fechaCreado,
                                               fechaModi: DateTime.now(),
                                               modificadoPor:
                                                   int.tryParse(userId!) ?? 1,
                                             );
                                       (widget.modalPurpose == ModalPurpose.add)
-                                          ? tryAddFuente(fuente)
-                                          : tryUpdateFuente(fuente);
+                                          ? tryAddComponente(componente)
+                                          : tryUpdateComponente(componente);
                                     }
                                   },
                             style: ElevatedButton.styleFrom(
@@ -405,7 +418,7 @@ class _FuentesModalState extends ConsumerState<FuentesModal> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '${widget.titulo} fuente',
+                        '${widget.titulo} componente',
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w700,
@@ -465,7 +478,7 @@ class _FuentesModalState extends ConsumerState<FuentesModal> {
                       //Botón de aceptar
                       ElevatedButton(
                         onPressed: () async {
-                          await tryDeleteFuente(widget.fuente!);
+                          await tryDeleteFuente(widget.componente!);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.rojoPrincipal,
@@ -489,9 +502,9 @@ class _FuentesModalState extends ConsumerState<FuentesModal> {
     );
   }
 
-  Future<void> tryAddFuente(Fuente fuente) async {
+  Future<void> tryAddComponente(Componente componente) async {
     setState(() => _isSendingData = true);
-    final result = await ref.read(addFuenteProvider).call(fuente);
+    final result = await ref.read(addComponenteProvider).call(componente);
 
     result.fold(
       (failure) {
@@ -526,9 +539,9 @@ class _FuentesModalState extends ConsumerState<FuentesModal> {
     );
   }
 
-  Future<void> tryUpdateFuente(Fuente fuente) async {
+  Future<void> tryUpdateComponente(Componente componente) async {
     setState(() => _isSendingData = true);
-    final result = await ref.read(updateFuenteProvider).call(fuente);
+    final result = await ref.read(updateComponenteProvider).call(componente);
 
     result.fold(
       (failure) {
@@ -563,9 +576,10 @@ class _FuentesModalState extends ConsumerState<FuentesModal> {
     );
   }
 
-  Future<void> tryDeleteFuente(Fuente fuente) async {
+  Future<void> tryDeleteFuente(Componente componente) async {
     setState(() => _isSendingData = true);
-    final result = await ref.read(deleteFuenteProvider).call(fuente.id!);
+    final result =
+        await ref.read(deleteComponenteProvider).call(componente.id!);
 
     result.fold(
       (failure) {

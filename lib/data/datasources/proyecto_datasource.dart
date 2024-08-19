@@ -95,7 +95,7 @@ class RemoteProyectoDataSource implements ProyectoDataSource {
       );
 
       final receivedData = jsonDecode(response.body);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 404) {
         final List<dynamic> proyectosJson = receivedData['data']['proyectos'];
 
         proyectosListado = proyectosJson.map((json) {
