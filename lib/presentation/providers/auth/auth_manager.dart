@@ -1,10 +1,10 @@
 import 'dart:convert';
+import 'package:adasba_2024/utilities/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:adasba_2024/presentation/providers/auth/credentials_manager.dart';
-import 'package:adasba_2024/utilities/secure_storage.dart';
 import 'package:adasba_2024/constants/api_routes.dart';
 part 'auth_manager.g.dart';
 
@@ -40,31 +40,36 @@ class AuthManager extends _$AuthManager {
 
       //Manejo de la respuesta
       if (response.statusCode == 201 && receivedData['success'] == true) {
-        //Grabación de los datos recibidos en Secure Storage
-        SecureStorage storage = SecureStorage();
+        final localStorage = LocalStorage();
 
         //Chequear que no hayan datos viejos (si hay, borrarlos)
-        Map<String, String> oldCredentials = await storage.getAllValues();
+        Map<String, String> oldCredentials = await localStorage.getAllValues();
+
         oldCredentials.isNotEmpty
-            ? await storage.deleteCredentialValues()
+            ? await localStorage.deleteCredentialValues()
             : null;
 
-        await storage
+        await localStorage
             .setSessionId(receivedData['data']['session_id'].toString());
-        await storage
-            .setAccessToken(receivedData['data']['access_token'].toString());
-        await storage.setAccessTokenExpiry(
-            receivedData['data']['access_token_expires_in'].toString());
-        await storage.setAccessTokenExpiryDate(
-            receivedData['data']['accesstokenexpiry'].toString());
-        await storage
-            .setRefreshToken(receivedData['data']['refresh_token'].toString());
-        await storage.setRefreshTokenExpiry(
-            receivedData['data']['refresh_token_expires_in'].toString());
-        await storage.setUserId(receivedData['data']['userid'].toString());
 
-        String? userId = await storage.getUserId();
-        String? accessToken = await storage.getAccessToken();
+        await localStorage
+            .setAccessToken(receivedData['data']['access_token'].toString());
+
+        await localStorage.setAccessTokenExpiry(
+            receivedData['data']['access_token_expires_in'].toString());
+
+        await localStorage.setAccessTokenExpiryDate(
+            receivedData['data']['accesstokenexpiry'].toString());
+
+        await localStorage
+            .setRefreshToken(receivedData['data']['refresh_token'].toString());
+
+        await localStorage.setRefreshTokenExpiry(
+            receivedData['data']['refresh_token_expires_in'].toString());
+        await localStorage.setUserId(receivedData['data']['userid'].toString());
+
+        String? userId = await localStorage.getUserId();
+        String? accessToken = await localStorage.getAccessToken();
 
         //? Obtener los datos del usuario que hizo login
         //TODO: CAMBIARLO A HTTPS CUANDO YA ESTÉ EN PRODUCCIÓN
@@ -83,17 +88,17 @@ class AuthManager extends _$AuthManager {
         if (responseUserData.statusCode == 200) {
           final userData = rawUserData['data']['usuarios'][0];
 
-          await storage.setCodaleaOrg(userData['codalea_org'].toString());
+          await localStorage.setCodaleaOrg(userData['codalea_org'].toString());
           (userData['foto'] != null && userData['foto'] != '')
-              ? await storage.setFotoUrl(userData['foto'].toString())
-              : await storage.setFotoUrl('');
-          await storage.setCorreo(userData['correo'].toString());
-          await storage.setNombres(userData['nombres'].toString());
-          await storage.setApellidos(userData['apellidos'].toString());
-          await storage.setRol(userData['rol'].toString());
+              ? await localStorage.setFotoUrl(userData['foto'].toString())
+              : await localStorage.setFotoUrl('');
+          await localStorage.setCorreo(userData['correo'].toString());
+          await localStorage.setNombres(userData['nombres'].toString());
+          await localStorage.setApellidos(userData['apellidos'].toString());
+          await localStorage.setRol(userData['rol'].toString());
 
           //Obtener todos los valores en el storage
-          Map<String, String> userDataMap = await storage.getAllValues();
+          Map<String, String> userDataMap = await localStorage.getAllValues();
 
           //Grabación de las credenciales en el provider de credenciales
           ref
@@ -111,12 +116,12 @@ class AuthManager extends _$AuthManager {
             : '';
       }
     } catch (e) {
-      return e.toString();
+      return 'Error de catch: $e';
     }
   }
 
   Future<String> tryRefreshToken() async {
-    final storage = SecureStorage();
+    final storage = LocalStorage();
 
     //Obtener los campos necesarios
     String? accessToken = await storage.getAccessToken();
@@ -143,7 +148,7 @@ class AuthManager extends _$AuthManager {
 
       if (response.statusCode == 200) {
         //Grabación de los datos recibidos en Secure Storage
-        SecureStorage storage = SecureStorage();
+        //final storage = LocalStorage();
 
         //Borrar SOLAMENTE la info de session
         storage.deleteSessionValues();
@@ -183,7 +188,7 @@ class AuthManager extends _$AuthManager {
   }
 
   Future<String> tryLogout() async {
-    SecureStorage storage = SecureStorage();
+    LocalStorage storage = LocalStorage();
 
     String? accessToken = await storage.getAccessToken();
     String? idSession = await storage.getSessionId();

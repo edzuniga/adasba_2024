@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import 'package:adasba_2024/utilities/local_storage.dart';
 import 'package:adasba_2024/data/models/actor_model.dart';
 import 'package:adasba_2024/domain/entities/actor.dart';
-import 'package:adasba_2024/utilities/secure_storage.dart';
 import 'package:adasba_2024/constants/api_routes.dart';
 
 abstract class ActorDataSource {
@@ -18,7 +18,7 @@ class RemoteActorDataSource implements ActorDataSource {
   @override
   Future<String> addActor(Actor actor) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
 
     // Crear una instancia de model a partir del entity
@@ -51,7 +51,7 @@ class RemoteActorDataSource implements ActorDataSource {
   @override
   Future<String> deleteActor(int id) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     String rutaConId = '${ApiRoutes.actorRoute}$id';
     try {
@@ -79,7 +79,7 @@ class RemoteActorDataSource implements ActorDataSource {
   @override
   Future<List<Actor>> getAllActores(String codaleaOrg) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     List<Actor> actoresListado = [];
     String rutaConCodaleaOrg = '${ApiRoutes.allActoresRoute}$codaleaOrg';
@@ -114,7 +114,7 @@ class RemoteActorDataSource implements ActorDataSource {
   @override
   Future<Actor> getSpecificActor(int id) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     List<Actor> actoresListado = [];
     String rutaConId = '${ApiRoutes.actorRoute}$id';
@@ -150,7 +150,7 @@ class RemoteActorDataSource implements ActorDataSource {
   @override
   Future<String> updateActor(Actor actor) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
 
     // Crear una instancia de GrupoModel a partir de Grupo

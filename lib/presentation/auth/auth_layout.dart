@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:adasba_2024/utilities/secure_storage.dart';
+import 'package:adasba_2024/utilities/local_storage.dart';
 import 'package:adasba_2024/presentation/config/routes.dart';
 import 'package:adasba_2024/presentation/providers/auth/auth_manager.dart';
 
@@ -23,7 +23,7 @@ class _AuthLayoutState extends ConsumerState<AuthLayout> {
 
   Future<void> _checkAuthStatus() async {
     //Revisar si hay datos almacenados en el storage
-    SecureStorage storage = SecureStorage();
+    LocalStorage storage = LocalStorage();
     Map<String, String> credencialesEnStorage = await storage.getAllValues();
 
     //Cuando hay datos en el storage

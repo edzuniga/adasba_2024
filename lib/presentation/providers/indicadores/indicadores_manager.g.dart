@@ -7,7 +7,7 @@ part of 'indicadores_manager.dart';
 // **************************************************************************
 
 String _$indicadoresManagerHash() =>
-    r'0931e51d562e88f290aa1affa857790ea541d695';
+    r'c21ef3e33fb2093fa905101fd835f891e2bd7d3e';
 
 /// See also [IndicadoresManager].
 @ProviderFor(IndicadoresManager)

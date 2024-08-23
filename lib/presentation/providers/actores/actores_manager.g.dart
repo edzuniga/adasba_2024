@@ -6,7 +6,7 @@ part of 'actores_manager.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$actoresManagerHash() => r'1d64ae0c8143b42b99feed0046bf54a8ad06bf56';
+String _$actoresManagerHash() => r'8028b3b4d947efa294c691a2ac12c16557301974';
 
 /// See also [ActoresManager].
 @ProviderFor(ActoresManager)

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import 'package:adasba_2024/utilities/secure_storage.dart';
+import 'package:adasba_2024/utilities/local_storage.dart';
 import 'package:adasba_2024/data/models/proyecto_model.dart';
 import 'package:adasba_2024/domain/entities/proyecto.dart';
 import 'package:adasba_2024/constants/api_routes.dart';
@@ -18,7 +18,7 @@ class RemoteProyectoDataSource implements ProyectoDataSource {
   @override
   Future<String> addProyecto(Proyecto proyecto) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
 
     // Crear una instancia de proyectoModel a partir de proyecto
@@ -51,7 +51,7 @@ class RemoteProyectoDataSource implements ProyectoDataSource {
   @override
   Future<String> deleteProyecto(int id) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     String rutaConId = '${ApiRoutes.proyectoRoute}$id';
     try {
@@ -79,7 +79,7 @@ class RemoteProyectoDataSource implements ProyectoDataSource {
   @override
   Future<List<Proyecto>> getAllProyectos(String codaleaOrg) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     List<Proyecto> proyectosListado = [];
     String rutaConCodaleaOrg = '${ApiRoutes.allProyectosRoute}$codaleaOrg';
@@ -113,7 +113,7 @@ class RemoteProyectoDataSource implements ProyectoDataSource {
   @override
   Future<Proyecto> getSpecificProyecto(int id) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     List<Proyecto> proyectosListado = [];
     String rutaConId = '${ApiRoutes.proyectoRoute}$id';
@@ -148,7 +148,7 @@ class RemoteProyectoDataSource implements ProyectoDataSource {
   @override
   Future<String> updateProyecto(Proyecto proyecto) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
 
     // Crear una instancia de GrupoModel a partir de Grupo

@@ -1,4 +1,3 @@
-import 'package:adasba_2024/presentation/providers/auth/credentials_manager.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,8 +5,9 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:adasba_2024/utilities/local_storage.dart';
+import 'package:adasba_2024/presentation/providers/auth/credentials_manager.dart';
 import 'package:adasba_2024/presentation/providers/auth/auth_manager.dart';
-import 'package:adasba_2024/utilities/secure_storage.dart';
 import 'package:adasba_2024/presentation/providers/dashboard/page_title.dart';
 import 'package:adasba_2024/constants/app_colors.dart';
 import 'package:adasba_2024/presentation/config/routes.dart';
@@ -44,7 +44,7 @@ class _DashboardLayoutState extends ConsumerState<DashboardLayout> {
 
   Future<void> _checkAuthStatus() async {
     //Revisar si hay datos almacenados en el storage
-    SecureStorage storage = SecureStorage();
+    LocalStorage storage = LocalStorage();
     Map<String, String> credencialesEnStorage = await storage.getAllValues();
 
     //Cuando hay datos en el storage

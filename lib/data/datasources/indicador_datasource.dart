@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import 'package:adasba_2024/utilities/local_storage.dart';
 import 'package:adasba_2024/constants/api_routes.dart';
 import 'package:adasba_2024/data/models/indicador_model.dart';
 import 'package:adasba_2024/domain/entities/indicador.dart';
-import 'package:adasba_2024/utilities/secure_storage.dart';
 
 abstract class IndicadorDataSource {
   Future<List<Indicador>> getAllIndicadores(String codaleaOrg);
@@ -18,7 +18,7 @@ class RemoteIndicadorDataSource implements IndicadorDataSource {
   @override
   Future<String> addIndicador(Indicador indicador) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
 
     // Crear una instancia de componenteModel a partir de componente
@@ -51,7 +51,7 @@ class RemoteIndicadorDataSource implements IndicadorDataSource {
   @override
   Future<String> deleteIndicador(int id) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     String rutaConId = '${ApiRoutes.indicadorRoute}$id';
     try {
@@ -79,7 +79,7 @@ class RemoteIndicadorDataSource implements IndicadorDataSource {
   @override
   Future<List<Indicador>> getAllIndicadores(String codaleaOrg) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     List<Indicador> listado = [];
     String rutaConCodaleaOrg = '${ApiRoutes.allIndicadoresRoute}$codaleaOrg';
@@ -113,7 +113,7 @@ class RemoteIndicadorDataSource implements IndicadorDataSource {
   @override
   Future<Indicador> getSpecificIndicador(int id) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     List<Indicador> listado = [];
     String rutaConId = '${ApiRoutes.indicadorRoute}$id';
@@ -148,7 +148,7 @@ class RemoteIndicadorDataSource implements IndicadorDataSource {
   @override
   Future<String> updateIndicador(Indicador indicador) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
 
     // Crear una instancia de GrupoModel a partir de Grupo

@@ -7,7 +7,7 @@ part of 'compromisos_ley_manager.dart';
 // **************************************************************************
 
 String _$compromisosLeyManagerHash() =>
-    r'c401a00fc3573393eb40f41ee42e6979112e8a6d';
+    r'c20f717aa4446148ec0336d327f2c3ea2a07c841';
 
 /// See also [CompromisosLeyManager].
 @ProviderFor(CompromisosLeyManager)

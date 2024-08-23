@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:adasba_2024/data/models/compromiso_ley_model.dart';
 import 'package:adasba_2024/domain/entities/compromiso_ley.dart';
-import 'package:adasba_2024/utilities/secure_storage.dart';
+import 'package:adasba_2024/utilities/local_storage.dart';
 import 'package:adasba_2024/constants/api_routes.dart';
 
 abstract class CompromisoLeyDataSource {
@@ -18,7 +18,7 @@ class RemoteCompromisoLeyDataSource implements CompromisoLeyDataSource {
   @override
   Future<String> addCompromisoLey(CompromisoLey compromisoLey) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
 
     // Crear una instancia de model a partir del entity
@@ -52,7 +52,7 @@ class RemoteCompromisoLeyDataSource implements CompromisoLeyDataSource {
   @override
   Future<String> deleteCompromisoLey(int id) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     String rutaConId = '${ApiRoutes.compromisoLeyRoute}$id';
     try {
@@ -80,7 +80,7 @@ class RemoteCompromisoLeyDataSource implements CompromisoLeyDataSource {
   @override
   Future<List<CompromisoLey>> getAllCompromisosLey(String codaleaOrg) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     List<CompromisoLey> listado = [];
     String rutaConCodaleaOrg = '${ApiRoutes.allCompromisosLeyRoute}$codaleaOrg';
@@ -114,7 +114,7 @@ class RemoteCompromisoLeyDataSource implements CompromisoLeyDataSource {
   @override
   Future<CompromisoLey> getSpecificCompromisoLey(int id) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     List<CompromisoLey> listado = [];
     String rutaConId = '${ApiRoutes.compromisoLeyRoute}$id';
@@ -149,7 +149,7 @@ class RemoteCompromisoLeyDataSource implements CompromisoLeyDataSource {
   @override
   Future<String> updateCompromisoLey(CompromisoLey compromisoLey) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
 
     // Crear una instancia de GrupoModel a partir de Grupo

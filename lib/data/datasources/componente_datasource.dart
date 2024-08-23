@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import 'package:adasba_2024/utilities/local_storage.dart';
 import 'package:adasba_2024/data/models/componente_model.dart';
-import 'package:adasba_2024/utilities/secure_storage.dart';
 import 'package:adasba_2024/domain/entities/componente.dart';
 import 'package:adasba_2024/constants/api_routes.dart';
 
@@ -18,7 +18,7 @@ class RemoteComponenteDataSource implements ComponenteDataSource {
   @override
   Future<String> addComponente(Componente componente) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
 
     // Crear una instancia de componenteModel a partir de componente
@@ -51,7 +51,7 @@ class RemoteComponenteDataSource implements ComponenteDataSource {
   @override
   Future<String> deleteComponente(int id) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     String rutaConId = '${ApiRoutes.componenteRoute}$id';
     try {
@@ -79,7 +79,7 @@ class RemoteComponenteDataSource implements ComponenteDataSource {
   @override
   Future<List<Componente>> getAllComponentes(String codaleaOrg) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     List<Componente> listado = [];
     String rutaConCodaleaOrg = '${ApiRoutes.allComponentesRoute}$codaleaOrg';
@@ -113,7 +113,7 @@ class RemoteComponenteDataSource implements ComponenteDataSource {
   @override
   Future<Componente> getSpecificComponente(int id) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     List<Componente> listado = [];
     String rutaConId = '${ApiRoutes.componenteRoute}$id';
@@ -148,7 +148,7 @@ class RemoteComponenteDataSource implements ComponenteDataSource {
   @override
   Future<String> updateComponente(Componente componente) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
 
     // Crear una instancia de GrupoModel a partir de Grupo

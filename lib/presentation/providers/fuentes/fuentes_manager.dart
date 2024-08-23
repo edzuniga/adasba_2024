@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:adasba_2024/domain/entities/fuente.dart';
 import 'package:adasba_2024/presentation/providers/fuentes/fuentes_repository_provider.dart';
 import 'package:adasba_2024/utilities/error_manager.dart';
-import 'package:adasba_2024/utilities/secure_storage.dart';
+import 'package:adasba_2024/utilities/local_storage.dart';
 
 part 'fuentes_manager.g.dart';
 
@@ -11,7 +11,7 @@ part 'fuentes_manager.g.dart';
 class FuentesManager extends _$FuentesManager {
   @override
   Future<List<Fuente>> build() async {
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? codaleaOrg = await storage.getCodaleaOrg();
     List<Fuente> listado = [];
     final result =

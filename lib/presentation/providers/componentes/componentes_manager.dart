@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:adasba_2024/domain/entities/componente.dart';
 import 'package:adasba_2024/presentation/providers/componentes/componentes_repository_provider.dart';
 import 'package:adasba_2024/utilities/error_manager.dart';
-import 'package:adasba_2024/utilities/secure_storage.dart';
+import 'package:adasba_2024/utilities/local_storage.dart';
 
 part 'componentes_manager.g.dart';
 
@@ -11,7 +11,7 @@ part 'componentes_manager.g.dart';
 class ComponentesManager extends _$ComponentesManager {
   @override
   Future<List<Componente>> build() async {
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? codaleaOrg = await storage.getCodaleaOrg();
     List<Componente> listado = [];
     final result =

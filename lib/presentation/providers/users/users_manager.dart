@@ -2,7 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:adasba_2024/presentation/providers/users/users_repository_provider.dart';
 import 'package:adasba_2024/utilities/error_manager.dart';
-import 'package:adasba_2024/utilities/secure_storage.dart';
+import 'package:adasba_2024/utilities/local_storage.dart';
 import 'package:adasba_2024/domain/entities/user.dart';
 part 'users_manager.g.dart';
 
@@ -10,7 +10,7 @@ part 'users_manager.g.dart';
 class UsuariosManager extends _$UsuariosManager {
   @override
   Future<List<User>> build() async {
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? codaleaOrg = await storage.getCodaleaOrg();
     List<User> listado = [];
     final result =

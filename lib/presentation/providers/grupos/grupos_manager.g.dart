@@ -6,7 +6,7 @@ part of 'grupos_manager.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$gruposManagerHash() => r'667f0d27fff48b0b9174b24316c40bf708ed5d74';
+String _$gruposManagerHash() => r'48777316a07979509cd08b652da5472feb5cc7ce';
 
 /// See also [GruposManager].
 @ProviderFor(GruposManager)

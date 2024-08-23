@@ -7,7 +7,7 @@ part of 'componentes_manager.dart';
 // **************************************************************************
 
 String _$componentesManagerHash() =>
-    r'1b7f7dc4574900f91e7b9f3e59601abe09addb04';
+    r'1be09dbbb4c05ca45e97174503b4ccbe116264ae';
 
 /// See also [ComponentesManager].
 @ProviderFor(ComponentesManager)

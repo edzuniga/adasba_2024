@@ -11,7 +11,7 @@ import 'package:adasba_2024/presentation/providers/compromisos_ley/compromisos_r
 import 'package:adasba_2024/presentation/providers/indicadores/indicadores_repository_provider.dart';
 import 'package:adasba_2024/presentation/providers/componentes/componentes_repository_provider.dart';
 import 'package:adasba_2024/presentation/providers/proyectos/proyectos_repository_provider.dart';
-import 'package:adasba_2024/utilities/secure_storage.dart';
+import 'package:adasba_2024/utilities/local_storage.dart';
 import 'package:adasba_2024/utilities/add_update_delete_enum.dart';
 import 'package:adasba_2024/constants/app_colors.dart';
 import 'package:adasba_2024/presentation/widgets/custom_input.dart';
@@ -72,7 +72,7 @@ class _IndicadoresModalState extends ConsumerState<IndicadoresModal> {
   }
 
   Future<void> _getProyectosDropdownItems() async {
-    SecureStorage storage = SecureStorage();
+    LocalStorage storage = LocalStorage();
     String? codaleaOrg = await storage.getCodaleaOrg();
     final proyectosProvider =
         await ref.read(getAllProyectosProvider).call(codaleaOrg!);
@@ -99,7 +99,7 @@ class _IndicadoresModalState extends ConsumerState<IndicadoresModal> {
   }
 
   Future<void> _getComponentesDropdownItems() async {
-    SecureStorage storage = SecureStorage();
+    LocalStorage storage = LocalStorage();
     String? codaleaOrg = await storage.getCodaleaOrg();
     final componentesProvider =
         await ref.read(getAllComponentesProvider).call(codaleaOrg!);
@@ -126,7 +126,7 @@ class _IndicadoresModalState extends ConsumerState<IndicadoresModal> {
   }
 
   Future<void> _getCompromisosDropdownItems() async {
-    SecureStorage storage = SecureStorage();
+    LocalStorage storage = LocalStorage();
     String? codaleaOrg = await storage.getCodaleaOrg();
     final compromisosProvider =
         await ref.read(getAllCompromisosProvider).call(codaleaOrg!);
@@ -786,7 +786,7 @@ class _IndicadoresModalState extends ConsumerState<IndicadoresModal> {
                                     if (_indicadoresFormKey.currentState!
                                         .validate()) {
                                       //Obtener los datos del storage
-                                      final storage = SecureStorage();
+                                      final storage = LocalStorage();
                                       String? codaleaOrg =
                                           await storage.getCodaleaOrg();
                                       String? userId =

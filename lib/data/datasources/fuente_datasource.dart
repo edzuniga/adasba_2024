@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import 'package:adasba_2024/utilities/local_storage.dart';
 import 'package:adasba_2024/constants/api_routes.dart';
 import 'package:adasba_2024/data/models/fuente_model.dart';
 import 'package:adasba_2024/domain/entities/fuente.dart';
-import 'package:adasba_2024/utilities/secure_storage.dart';
 
 abstract class FuenteDatasource {
   Future<List<Fuente>> getAllFuentes(String codaleaOrg);
@@ -18,7 +18,7 @@ class RemoteFuenteDataSource implements FuenteDatasource {
   @override
   Future<String> addFuente(Fuente fuente) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
 
     // Crear una instancia de model a partir del entity
@@ -51,7 +51,7 @@ class RemoteFuenteDataSource implements FuenteDatasource {
   @override
   Future<String> deleteFuente(int id) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     String rutaConId = '${ApiRoutes.fuenteRoute}$id';
     try {
@@ -79,7 +79,7 @@ class RemoteFuenteDataSource implements FuenteDatasource {
   @override
   Future<List<Fuente>> getAllFuentes(String codaleaOrg) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     List<Fuente> listado = [];
     String rutaConCodaleaOrg = '${ApiRoutes.allFuentesRoute}$codaleaOrg';
@@ -114,7 +114,7 @@ class RemoteFuenteDataSource implements FuenteDatasource {
   @override
   Future<Fuente> getSpecificFuente(int id) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     List<Fuente> listado = [];
     String rutaConId = '${ApiRoutes.fuenteRoute}$id';
@@ -150,7 +150,7 @@ class RemoteFuenteDataSource implements FuenteDatasource {
   @override
   Future<String> updateFuente(Fuente fuente) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
 
     // Crear una instancia de GrupoModel a partir de Grupo

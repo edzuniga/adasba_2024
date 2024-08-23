@@ -1,4 +1,4 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+/*import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SecureStorage {
   final storage = const FlutterSecureStorage();
@@ -19,57 +19,111 @@ class SecureStorage {
   final String _keyRol = 'rol';
 
   //SETTERS
-  Future setSessionId(String sessionId) async {
-    await storage.write(key: _keySessionId, value: sessionId);
+  Future<String> setSessionId(String sessionId) async {
+    try {
+      await storage.write(key: _keySessionId, value: sessionId);
+      return 'exito';
+    } catch (e) {
+      throw 'error con storage: $e';
+    }
   }
 
   Future setAccessToken(String accessToken) async {
-    await storage.write(key: _keyAccessToken, value: accessToken);
+    try {
+      await storage.write(key: _keyAccessToken, value: accessToken);
+    } catch (e) {
+      throw 'error con storage: $e';
+    }
   }
 
   Future setAccessTokenExpiry(String accessTokenExpiry) async {
-    await storage.write(key: _keyAccessTokenExpiry, value: accessTokenExpiry);
+    try {
+      await storage.write(key: _keyAccessTokenExpiry, value: accessTokenExpiry);
+    } catch (e) {
+      throw 'error con storage: $e';
+    }
   }
 
   Future setAccessTokenExpiryDate(String accessTokenExpiryDate) async {
-    await storage.write(
-        key: _keyAccessTokenExpiryDate, value: accessTokenExpiryDate);
+    try {
+      await storage.write(
+          key: _keyAccessTokenExpiryDate, value: accessTokenExpiryDate);
+    } catch (e) {
+      throw 'error con storage: $e';
+    }
   }
 
   Future setRefreshToken(String refreshToken) async {
-    await storage.write(key: _keyRefreshToken, value: refreshToken);
+    try {
+      await storage.write(key: _keyRefreshToken, value: refreshToken);
+    } catch (e) {
+      throw 'error con storage: $e';
+    }
   }
 
   Future setRefreshTokenExpiry(String refreshTokenExpiry) async {
-    await storage.write(key: _keyRefreshTokenExpiry, value: refreshTokenExpiry);
+    try {
+      await storage.write(
+          key: _keyRefreshTokenExpiry, value: refreshTokenExpiry);
+    } catch (e) {
+      throw 'error con storage: $e';
+    }
   }
 
   Future setUserId(String userId) async {
-    await storage.write(key: _keyUserId, value: userId);
+    try {
+      await storage.write(key: _keyUserId, value: userId);
+    } catch (e) {
+      throw 'error con storage: $e';
+    }
   }
 
   Future setCodaleaOrg(String codaleaOrg) async {
-    await storage.write(key: _keyCodaleaOrg, value: codaleaOrg);
+    try {
+      await storage.write(key: _keyCodaleaOrg, value: codaleaOrg);
+    } catch (e) {
+      throw 'error con storage: $e';
+    }
   }
 
   Future setFotoUrl(String fotoUrl) async {
-    await storage.write(key: _keyFotoUrl, value: fotoUrl);
+    try {
+      await storage.write(key: _keyFotoUrl, value: fotoUrl);
+    } catch (e) {
+      throw 'error con storage: $e';
+    }
   }
 
   Future setNombres(String nombres) async {
-    await storage.write(key: _keyNombres, value: nombres);
+    try {
+      await storage.write(key: _keyNombres, value: nombres);
+    } catch (e) {
+      throw 'error de storage: $e';
+    }
   }
 
   Future setApellidos(String apellidos) async {
-    await storage.write(key: _keyApellidos, value: apellidos);
+    try {
+      await storage.write(key: _keyApellidos, value: apellidos);
+    } catch (e) {
+      throw 'error de storage: $e';
+    }
   }
 
   Future setCorreo(String correo) async {
-    await storage.write(key: _keyCorreo, value: correo);
+    try {
+      await storage.write(key: _keyCorreo, value: correo);
+    } catch (e) {
+      throw 'error de storage: $e';
+    }
   }
 
   Future setRol(String rol) async {
-    await storage.write(key: _keyRol, value: rol);
+    try {
+      await storage.write(key: _keyRol, value: rol);
+    } catch (e) {
+      throw 'error de storage: $e';
+    }
   }
 
   //GETTERS
@@ -127,20 +181,33 @@ class SecureStorage {
 
   //Función para obtener todos los valores en el storage y mandarlos como mapa
   Future<Map<String, String>> getAllValues() async {
-    return await storage.readAll();
+    try {
+      return await storage.readAll();
+    } catch (e) {
+      throw 'Error con storage: $e';
+    }
   }
 
   //DELETE ALL VALUES (WHEN SESSION IS DESTROYED)
   Future<void> deleteCredentialValues() async {
-    await storage.deleteAll();
+    try {
+      await storage.deleteAll();
+    } catch (e) {
+      throw 'Error con storage: $e';
+    }
   }
 
   Future<void> deleteSessionValues() async {
-    await storage.delete(key: _keySessionId);
-    await storage.delete(key: _keyAccessToken);
-    await storage.delete(key: _keyAccessTokenExpiry);
-    await storage.delete(key: _keyRefreshToken);
-    await storage.delete(key: _keyRefreshTokenExpiry);
-    await storage.delete(key: _keyAccessTokenExpiryDate);
+    try {
+      await storage.delete(key: _keySessionId);
+      await storage.delete(key: _keyAccessToken);
+      await storage.delete(key: _keyAccessTokenExpiry);
+      await storage.delete(key: _keyRefreshToken);
+      await storage.delete(key: _keyRefreshTokenExpiry);
+      await storage.delete(key: _keyAccessTokenExpiryDate);
+    } catch (e) {
+      throw 'Error con storage: $e';
+    }
   }
 }
+*/

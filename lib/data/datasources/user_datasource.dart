@@ -2,8 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:adasba_2024/domain/entities/user.dart';
-import 'package:adasba_2024/utilities/secure_storage.dart';
-
+import 'package:adasba_2024/utilities/local_storage.dart';
 import 'package:adasba_2024/data/models/user_model.dart';
 import 'package:adasba_2024/constants/api_routes.dart';
 
@@ -19,7 +18,7 @@ class RemoteUserDataSource implements UserDataSource {
   @override
   Future<String> addUser(User user) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
 
     // Crear una instancia de userModel a partir de user
@@ -52,7 +51,7 @@ class RemoteUserDataSource implements UserDataSource {
   @override
   Future<String> deleteUser(int id) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     String rutaConId = '${ApiRoutes.userRoute}$id';
     try {
@@ -80,7 +79,7 @@ class RemoteUserDataSource implements UserDataSource {
   @override
   Future<List<User>> getAllUsers(String codaleaOrg) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     List<User> usuariosListado = [];
     String rutaConCodaleaOrg = '${ApiRoutes.allUsersRoute}$codaleaOrg';
@@ -114,7 +113,7 @@ class RemoteUserDataSource implements UserDataSource {
   @override
   Future<User> getSpecificUser(int id) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     List<User> usersListado = [];
     String rutaConId = '${ApiRoutes.userRoute}$id';
@@ -149,7 +148,7 @@ class RemoteUserDataSource implements UserDataSource {
   @override
   Future<String> updateUser(User user) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
 
     // Crear una instancia de GrupoModel a partir de Grupo

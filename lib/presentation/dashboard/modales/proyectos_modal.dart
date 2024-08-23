@@ -12,7 +12,7 @@ import 'package:adasba_2024/presentation/providers/proyectos/proyectos_repositor
 import 'package:adasba_2024/presentation/widgets/multiselect_input.dart';
 import 'package:adasba_2024/presentation/providers/grupos/grupos_repository_provider.dart';
 import 'package:adasba_2024/utilities/error_manager.dart';
-import 'package:adasba_2024/utilities/secure_storage.dart';
+import 'package:adasba_2024/utilities/local_storage.dart';
 import 'package:adasba_2024/utilities/add_update_delete_enum.dart';
 import 'package:adasba_2024/constants/app_colors.dart';
 import 'package:adasba_2024/presentation/widgets/custom_input.dart';
@@ -54,7 +54,7 @@ class _ProyectoModalState extends ConsumerState<ProyectoModal> {
   }
 
   Future<void> _getMultiSelectItems() async {
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? codaleaOrg = await storage.getCodaleaOrg();
     final result =
         await ref.read(getAllGruposProvider).call(codaleaOrg.toString());
@@ -260,7 +260,7 @@ class _ProyectoModalState extends ConsumerState<ProyectoModal> {
                                     if (_proyectoFormKey.currentState!
                                         .validate()) {
                                       //Obtener los datos del storage
-                                      final storage = SecureStorage();
+                                      final storage = LocalStorage();
                                       String? codaleaOrg =
                                           await storage.getCodaleaOrg();
                                       String? userId =

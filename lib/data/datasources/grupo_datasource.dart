@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import 'package:adasba_2024/utilities/local_storage.dart';
 import 'package:adasba_2024/data/models/grupo_model.dart';
 import 'package:adasba_2024/constants/api_routes.dart';
-import 'package:adasba_2024/utilities/secure_storage.dart';
 import 'package:adasba_2024/domain/entities/grupo_beneficiario.dart';
 
 abstract class GrupoDataSource {
@@ -19,7 +19,7 @@ class RemoteGrupoDataSource implements GrupoDataSource {
   @override
   Future<String> addGrupo(Grupo grupo) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
 
     // Crear una instancia de GrupoModel a partir de Grupo
@@ -53,7 +53,7 @@ class RemoteGrupoDataSource implements GrupoDataSource {
   @override
   Future<String> deleteGrupo(int id) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     String rutaConId = '${ApiRoutes.grupoRoute}$id';
     try {
@@ -81,7 +81,7 @@ class RemoteGrupoDataSource implements GrupoDataSource {
   @override
   Future<List<Grupo>> getAllGrupos(String codaleaOrg) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     String rutaConCodaleaOrg = '${ApiRoutes.allGruposRoute}$codaleaOrg';
     try {
@@ -115,7 +115,7 @@ class RemoteGrupoDataSource implements GrupoDataSource {
   @override
   Future<Grupo> getSpecificGrupo(int id) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
     List<Grupo> gruposListado = [];
     String rutaConId = '${ApiRoutes.grupoRoute}$id';
@@ -152,7 +152,7 @@ class RemoteGrupoDataSource implements GrupoDataSource {
   @override
   Future<String> updateGrupo(Grupo grupo) async {
     //Obtener las variables necesarias del storage
-    final storage = SecureStorage();
+    final storage = LocalStorage();
     String? accessToken = await storage.getAccessToken();
 
     // Crear una instancia de GrupoModel a partir de Grupo

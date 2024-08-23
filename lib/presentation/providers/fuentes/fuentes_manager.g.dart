@@ -6,7 +6,7 @@ part of 'fuentes_manager.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$fuentesManagerHash() => r'41b177bbb7fe95f136061b12b534b68b6bbe71f2';
+String _$fuentesManagerHash() => r'18db6605a5aaa6b18210bdb6af7123da30c3af6c';
 
 /// See also [FuentesManager].
 @ProviderFor(FuentesManager)
