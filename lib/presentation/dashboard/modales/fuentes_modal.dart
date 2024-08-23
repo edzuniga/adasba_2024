@@ -93,10 +93,18 @@ class _FuentesModalState extends ConsumerState<FuentesModal> {
         ),
       );
     }, (successData) async {
+      //Revisar que los items seleccionados en los dropdowns estén ACTIVOS
+      final proyectoProvider = ref.read(getSpecificProyectoProvider);
+      final proyectoData = await proyectoProvider.call(successData.idProyecto);
+      proyectoData.fold((failure) {}, (proyecto) {
+        proyecto.activo != 2
+            ? _selectedIdProyecto = successData.idProyecto
+            : null;
+      });
+
       _nombreFuenteController.text = successData.nombreFuente;
       _codigoFuenteController.text = successData.codigoFuente;
       _descripcionFuenteController.text = successData.descripcionFuente ?? '';
-      _selectedIdProyecto = successData.idProyecto;
       setState(() {});
     });
   }

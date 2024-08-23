@@ -129,7 +129,7 @@ class _ComponentesViewState extends ConsumerState<ComponentesView> {
                           return nombre.contains(_searchQuery) ||
                               codigo.contains(_searchQuery);
                         }).toList();
-                  final fuentesDTS = ComponentesTableSource(
+                  final componentesDTS = ComponentesTableSource(
                     data: filteredComponentes,
                     ref: ref,
                     context: context,
@@ -270,7 +270,7 @@ class _ComponentesViewState extends ConsumerState<ComponentesView> {
                           ),
                         ),
                       ],
-                      source: fuentesDTS,
+                      source: componentesDTS,
                     ),
                   );
                 },

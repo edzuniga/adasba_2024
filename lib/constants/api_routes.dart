@@ -1,7 +1,7 @@
 class ApiRoutes {
   //*Auth routes
   //URL principal de la dirección de la API
-  static const urlApi = 'localhost:8888';
+  static const urlApi = '3.140.55.34:8080';
   //static const urlApi = '10.0.2.2:8888'; //Pruebas con android emulator
 
   //*RUTAS DE AUTENTICACIÓN

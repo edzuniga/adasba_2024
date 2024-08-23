@@ -82,9 +82,9 @@ class IndicadorModel extends Indicador {
         'c5': c5,
         'fuentes_verificacion': fuentesVerificacion,
         'activo': activo,
-        'fecha_creado': fechaCreado,
+        'fecha_creado': fechaCreado.toIso8601String(),
         'creado_por': creadoPor,
-        'fecha_modi': fechaModi,
+        'fecha_modi': fechaModi?.toIso8601String(),
         'modificado_por': modificadoPor,
       };
 
@@ -167,5 +167,36 @@ class IndicadorModel extends Indicador {
       fechaModi: indicador.fechaModi,
       modificadoPor: indicador.modificadoPor,
     );
+  }
+
+  @override
+  String toString() {
+    return '''
+IndicadorModel {
+  id: $id,
+  codaleaOrg: $codaleaOrg,
+  codalea: $codalea,
+  numeroIndicador: $numeroIndicador,
+  tipoIndicador: $tipoIndicador,
+  proyectoRelacionado: $proyectoRelacionado,
+  componenteRelacionado: $componenteRelacionado,
+  compromisoRelacionado: $compromisoRelacionado,
+  nombreIndicador: $nombreIndicador,
+  nombreCortoIndicador: $nombreCortoIndicador,
+  descripcionIndicador: $descripcionIndicador,
+  c0: $c0,
+  c1: $c1,
+  c2: $c2,
+  c3: $c3,
+  c4: $c4,
+  c5: $c5,
+  fuentesVerificacion: $fuentesVerificacion,
+  activo: $activo,
+  fechaCreado: $fechaCreado,
+  creadoPor: $creadoPor,
+  fechaModi: $fechaModi,
+  modificadoPor: $modificadoPor
+}
+''';
   }
 }

@@ -96,11 +96,19 @@ class _ComponentesModalState extends ConsumerState<ComponentesModal> {
         ),
       );
     }, (successData) async {
+      //Revisar que los items seleccionados en los dropdowns estén ACTIVOS
+      final proyectoProvider = ref.read(getSpecificProyectoProvider);
+      final proyectoData = await proyectoProvider.call(successData.idProyecto);
+      proyectoData.fold((failure) {}, (proyecto) {
+        proyecto.activo != 2
+            ? _selectedIdProyecto = successData.idProyecto
+            : null;
+      });
+
       _codigoComponenteController.text = successData.codigoComponente;
       _nombreComponenteController.text = successData.nombreComponente;
       _descripcionComponenteController.text =
           successData.descripcionComponente ?? '';
-      _selectedIdProyecto = successData.idProyecto;
       setState(() {});
     });
   }
