@@ -348,7 +348,7 @@ class _IndicadoresModalState extends ConsumerState<IndicadoresModal> {
                           Expanded(
                             child: CustomInputField(
                               controlador: _descripcionIndicadorController,
-                              label: 'Descripción del componente',
+                              label: 'Descripción del indicador',
                               isTextArea: true,
                             ),
                           ),

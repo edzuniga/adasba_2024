@@ -36,6 +36,8 @@ class _ComponentesModalState extends ConsumerState<ComponentesModal> {
       TextEditingController();
   final TextEditingController _descripcionComponenteController =
       TextEditingController();
+  final TextEditingController _resultadosEsperadosController =
+      TextEditingController();
   List<DropdownMenuItem<int>> _itemsDropdown = [];
   int? _selectedIdProyecto;
   bool _isSendingData = false;
@@ -109,6 +111,8 @@ class _ComponentesModalState extends ConsumerState<ComponentesModal> {
       _nombreComponenteController.text = successData.nombreComponente;
       _descripcionComponenteController.text =
           successData.descripcionComponente ?? '';
+      _resultadosEsperadosController.text =
+          successData.resultadosEsperados ?? '';
       setState(() {});
     });
   }
@@ -118,6 +122,7 @@ class _ComponentesModalState extends ConsumerState<ComponentesModal> {
     _codigoComponenteController.dispose();
     _nombreComponenteController.dispose();
     _descripcionComponenteController.dispose();
+    _resultadosEsperadosController.dispose();
     super.dispose();
   }
 
@@ -292,6 +297,25 @@ class _ComponentesModalState extends ConsumerState<ComponentesModal> {
                       ),
                     ),
 
+                    //Resultados esperados
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 10,
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: CustomInputField(
+                              controlador: _resultadosEsperadosController,
+                              label: 'Resultados esperados',
+                              isTextArea: true,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
                     //Botones cancelar y agregar
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -324,6 +348,7 @@ class _ComponentesModalState extends ConsumerState<ComponentesModal> {
                                 : () async {
                                     if (_componentesFormKey.currentState!
                                         .validate()) {
+                                      //Caso específico
                                       //Obtener los datos del storage
                                       final storage = LocalStorage();
                                       String? codaleaOrg =
@@ -347,6 +372,9 @@ class _ComponentesModalState extends ConsumerState<ComponentesModal> {
                                               descripcionComponente:
                                                   _descripcionComponenteController
                                                       .text,
+                                              resultadosEsperados:
+                                                  _resultadosEsperadosController
+                                                      .text,
                                               activo: 1,
                                               fechaCreado: DateTime.now(),
                                               creadoPor:
@@ -366,6 +394,9 @@ class _ComponentesModalState extends ConsumerState<ComponentesModal> {
                                                       .text,
                                               descripcionComponente:
                                                   _descripcionComponenteController
+                                                      .text,
+                                              resultadosEsperados:
+                                                  _resultadosEsperadosController
                                                       .text,
                                               activo: 1,
                                               creadoPor: widget.componente!.id!,

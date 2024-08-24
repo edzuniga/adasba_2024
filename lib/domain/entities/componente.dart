@@ -7,6 +7,7 @@ class Componente {
     required this.nombreComponente,
     this.descripcionComponente,
     required this.codigoComponente,
+    this.resultadosEsperados,
     required this.activo,
     required this.fechaCreado,
     required this.creadoPor,
@@ -21,6 +22,7 @@ class Componente {
   final String nombreComponente;
   final String? descripcionComponente;
   final String codigoComponente;
+  final String? resultadosEsperados;
   final int activo;
   final DateTime fechaCreado;
   final int creadoPor;

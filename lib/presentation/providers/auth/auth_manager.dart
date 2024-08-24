@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'package:adasba_2024/utilities/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import 'package:adasba_2024/utilities/local_storage.dart';
 import 'package:adasba_2024/presentation/providers/auth/credentials_manager.dart';
 import 'package:adasba_2024/constants/api_routes.dart';
 part 'auth_manager.g.dart';

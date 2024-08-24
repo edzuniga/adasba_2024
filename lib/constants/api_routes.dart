@@ -61,4 +61,17 @@ class ApiRoutes {
   static const allIndicadoresRoute = '/api_sgp_mo/v1/indicadores/codalea_org/';
   static const indicadorRoute = '/api_sgp_mo/v1/indicadores/';
   static const addIndicadorRoute = '/api_sgp_mo/v1/indicadores';
+
+  //*SET INDICADORES
+  static const allSetIndicadoresRoute = '/api_sgp_mo/v1/sets/codalea_org/';
+  static const setIndicadorRoute = '/api_sgp_mo/v1/sets/';
+  static const addSetIndicadorRoute = '/api_sgp_mo/v1/sets';
+
+  //*INDICADORES POR SET
+  static const allIndicadoresPorSetRoute =
+      '/api_sgp_mo/v1/indicadores_por_set/codalea_org/';
+  static const indicadoresPorSetIdRoute =
+      '/api_sgp_mo/v1/indicadores_por_set/set_id/';
+  static const indicadoresPorSetRoute = '/api_sgp_mo/v1/indicadores_por_set/';
+  static const addIndicadoresPorSetRoute = '/api_sgp_mo/v1/indicadores_por_set';
 }
